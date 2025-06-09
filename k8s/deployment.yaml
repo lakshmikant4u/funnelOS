@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: funnelos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: funnelos
+  template:
+    metadata:
+      labels:
+        app: funnelos
+    spec:
+      containers:
+        - name: funnelos
+          image: funnelos:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: DATABASE_URL
+              value: "mongodb://user:password@mongo:27017/mydb"
