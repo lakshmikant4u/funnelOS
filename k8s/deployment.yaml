@@ -20,5 +20,5 @@ spec:
           env:
             - name: PORT
               value: "3000"
-            - name: DB_URL
-              value: "postgres://example"
+            - name: DATABASE_URL
+              value: "mongodb://user:password@mongo:27017/mydb"
