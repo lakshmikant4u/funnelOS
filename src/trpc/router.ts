@@ -21,7 +21,8 @@ export const appRouter = t.router({
   }),
   mongoAnalytics: t.procedure.query(async () => {
     const db = getMongoPrisma();
-    return db.analytics.findMany();
+    const client: any = db as any;
+    return client.analytics?.findMany() ?? [];
   }),
 });
 
