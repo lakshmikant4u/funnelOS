@@ -134,3 +134,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Ignore generated Prisma clients but keep placeholder stubs
+prisma/generated/*
+!prisma/generated/postgres/index.d.ts
+!prisma/generated/mongo/index.d.ts

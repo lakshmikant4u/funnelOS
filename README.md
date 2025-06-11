@@ -35,10 +35,10 @@ npm install
 npm run dev
 ```
 
-Generate Prisma client:
+Generate Prisma client for MongoDB:
 
 ```bash
-npm run prisma:generate
+npm run prisma:generate:mongo
 ```
 
 Generate Prisma client for PostgreSQL:
