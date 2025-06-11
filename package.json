@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "prisma:generate": "prisma generate",
+    "prisma:generate": "prisma generate --schema=prisma/schema.mongo.prisma",
     "prisma:generate:postgres": "prisma generate --schema=prisma/schema.postgres.prisma"
   },
   "keywords": [],
