@@ -3,7 +3,7 @@ import * as trpcExpress from '@trpc/server/adapters/express';
 import { appRouter } from './trpc/router';
 import { logger } from './logger';
 import { register } from './metrics';
-import { connectDB } from './db';
+import { connectMongo, connectPostgres } from './db';
 import { initSentry } from './sentry';
 import { errorHandler } from './errorHandler';
 import * as Sentry from '@sentry/node';
@@ -41,7 +41,17 @@ app.use(errorHandler);
 const port = process.env.PORT || 3000;
 
 async function start() {
-  await connectDB({ url: process.env.DATABASE_URL || '', name: 'default' });
+  const mongoUrl = process.env.DATABASE_URL || '';
+  const postgresUrl = process.env.POSTGRES_URL;
+
+  if (mongoUrl) {
+    await connectMongo(mongoUrl);
+  }
+
+  if (postgresUrl) {
+    await connectPostgres(postgresUrl);
+  }
+
   app.listen(port, () => {
     logger.info(`Server listening on port ${port}`);
   });
