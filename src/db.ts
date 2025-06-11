@@ -1,4 +1,4 @@
-import { PrismaClient as MongoClient } from '@prisma/client';
+import { PrismaClient as MongoClient } from '../prisma/generated/mongo';
 import { PrismaClient as PostgresClient } from '../prisma/generated/postgres';
 import { logger } from './logger';
 
