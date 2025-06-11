@@ -5,12 +5,16 @@ import { logger } from './logger';
 import { register } from './metrics';
 import { connectDB } from './db';
 import { initSentry } from './sentry';
+import { errorHandler } from './errorHandler';
+import * as Sentry from '@sentry/node';
 import dotenv from 'dotenv';
 
 dotenv.config();
 initSentry();
 
 const app = express();
+
+// Sentry is optional and initialized only when DSN is provided
 
 // logger middleware
 app.use(require('pino-http')({ logger }));
@@ -31,6 +35,9 @@ app.use('/trpc', trpcExpress.createExpressMiddleware({
   router: appRouter,
 }));
 
+// Custom error handler
+app.use(errorHandler);
+
 const port = process.env.PORT || 3000;
 
 async function start() {
@@ -41,3 +48,13 @@ async function start() {
 }
 
 start();
+
+process.on('unhandledRejection', (reason) => {
+  logger.error({ err: reason }, 'Unhandled Rejection');
+  Sentry.captureException(reason as any);
+});
+
+process.on('uncaughtException', (err) => {
+  logger.error({ err }, 'Uncaught Exception');
+  Sentry.captureException(err);
+});
