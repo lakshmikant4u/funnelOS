@@ -1,23 +1,34 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient as MongoClient } from '@prisma/client';
+import { PrismaClient as PostgresClient } from '../prisma/generated/postgres';
 import { logger } from './logger';
 
-export interface DBConfig {
-  url: string;
-  name: string;
+let mongo: MongoClient | null = null;
+let postgres: PostgresClient | null = null;
+
+export async function connectMongo(url: string) {
+  logger.info(`Connecting to Mongo at ${url}`);
+  mongo = new MongoClient({ datasources: { db: { url } } });
+  await mongo.$connect();
+  logger.info('Mongo connected');
 }
 
-let prisma: PrismaClient | null = null;
-
-export async function connectDB(config: DBConfig) {
-  logger.info(`Connecting to database ${config.name} at ${config.url}`);
-  prisma = new PrismaClient({ datasources: { db: { url: config.url } } });
-  await prisma.$connect();
-  logger.info('Database connected');
+export async function connectPostgres(url: string) {
+  logger.info(`Connecting to Postgres at ${url}`);
+  postgres = new PostgresClient({ datasources: { db: { url } } });
+  await postgres.$connect();
+  logger.info('Postgres connected');
 }
 
-export function getPrisma(): PrismaClient {
-  if (!prisma) {
-    throw new Error('Prisma not initialized. Call connectDB first.');
+export function getMongoPrisma(): MongoClient {
+  if (!mongo) {
+    throw new Error('Mongo client not initialized');
   }
-  return prisma;
+  return mongo;
+}
+
+export function getPostgresPrisma(): PostgresClient {
+  if (!postgres) {
+    throw new Error('Postgres client not initialized');
+  }
+  return postgres;
 }
