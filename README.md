@@ -10,6 +10,7 @@ It features:
 - **Prometheus** metrics endpoint
 - **Sentry** integration for error tracking
 - **Dockerfile** and **Kubernetes** manifests
+- **Centralized error handling** with standardized error codes
 
 ## Environment variables
 
