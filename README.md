@@ -19,11 +19,11 @@ Copy `.env.example` to `.env` and adjust the values as needed:
 ```
 PORT=3000
 MongoDB_URL=mongodb://user:password@localhost:27017/mydb
+
 POSTGRES_URL=postgresql://user:password@localhost:5432/mydb
 LOG_LEVEL=info
 SENTRY_DSN=
 ```
-
 `MongoDB_URL` should be a valid MongoDB connection string. Set `POSTGRES_URL`
 in addition if you want to enable the PostgreSQL client. `LOG_LEVEL` and
 `SENTRY_DSN` are optional.
