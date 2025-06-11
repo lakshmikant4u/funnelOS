@@ -41,7 +41,7 @@ app.use(errorHandler);
 const port = process.env.PORT || 3000;
 
 async function start() {
-  const mongoUrl = process.env.DATABASE_URL || '';
+  const mongoUrl = process.env.MongoDB_URL || '';
   const postgresUrl = process.env.POSTGRES_URL;
 
   if (mongoUrl) {
