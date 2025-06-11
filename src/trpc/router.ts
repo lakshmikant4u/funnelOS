@@ -15,6 +15,15 @@ export const appRouter = t.router({
     const db = getPostgresPrisma();
     return db.example.findMany();
   }),
+  postgresUsers: t.procedure.query(async () => {
+    const db = getPostgresPrisma();
+    return db.user.findMany();
+  }),
+  mongoAnalytics: t.procedure.query(async () => {
+    const db = getMongoPrisma();
+    const client: any = db as any;
+    return client.analytics?.findMany() ?? [];
+  }),
 });
 
 export type AppRouter = typeof appRouter;

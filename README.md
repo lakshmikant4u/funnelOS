@@ -35,10 +35,10 @@ npm install
 npm run dev
 ```
 
-Generate Prisma client:
+Generate Prisma client for MongoDB:
 
 ```bash
-npm run prisma:generate
+npm run prisma:generate:mongo
 ```
 
 Generate Prisma client for PostgreSQL:
@@ -77,3 +77,5 @@ kubectl apply -f k8s/
 - `greeting` - returns a simple greeting
 - `mongoExamples` - lists `Example` records from MongoDB
 - `postgresExamples` - lists `Example` records from PostgreSQL
+- `postgresUsers` - lists `User` records from PostgreSQL
+- `mongoAnalytics` - lists analytics records from MongoDB
