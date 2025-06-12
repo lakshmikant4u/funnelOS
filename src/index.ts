@@ -6,6 +6,7 @@ import { register } from './metrics';
 import { connectMongo, connectPostgres } from './db';
 import { initSentry } from './sentry';
 import { errorHandler } from './errorHandler';
+import { createContext } from './trpc/context';
 import * as Sentry from '@sentry/node';
 import dotenv from 'dotenv';
 
@@ -13,6 +14,7 @@ dotenv.config();
 initSentry();
 
 const app = express();
+app.use(express.json());
 
 // Sentry is optional and initialized only when DSN is provided
 
@@ -33,6 +35,7 @@ app.get('/health', (_req, res) => {
 // tRPC endpoint
 app.use('/trpc', trpcExpress.createExpressMiddleware({
   router: appRouter,
+  createContext,
 }));
 
 // Custom error handler
