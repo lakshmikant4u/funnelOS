@@ -77,5 +77,9 @@ kubectl apply -f k8s/
 - `greeting` - returns a simple greeting
 - `mongoExamples` - lists `Example` records from MongoDB
 - `postgresExamples` - lists `Example` records from PostgreSQL
-- `postgresUsers` - lists `User` records from PostgreSQL
 - `mongoAnalytics` - lists analytics records from MongoDB
+- `users.list` - list users (auth required)
+- `users.get` - get a single user (auth required)
+- `users.create` - create user (admin only)
+- `users.update` - update user (admin only)
+- `users.delete` - delete user (admin only)
